@@ -10,11 +10,12 @@ public class Main {
     public static void main (String [] args) {
 
         //Ubicamos la ruta del archivo original.
-        Path ruta = Paths.get("M2_T02_Origen.txt");
+        Path ruta = Paths.get("E:\\Workspace Luciano\\tokioschool\\Ejercicios Java Avanzado\\M2_T02_Origen.txt");
 
         //Creamos un objeto de lectura para el archivo y uno para escritura (el archivo Destino).
         try (BufferedReader leer = Files.newBufferedReader(ruta);
-        BufferedWriter writer = new BufferedWriter(new FileWriter("M2_T02_Destino.txt"))){
+        BufferedWriter writer = new BufferedWriter
+                (new FileWriter("E:\\Workspace Luciano\\tokioschool\\Ejercicios Java Avanzado\\M2_T02_Destino.txt"))){
 
             String contenidoOrigen;
             String contenidoDestino;
