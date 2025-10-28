@@ -1,85 +1,68 @@
-
 import java.io.*;
-import java.net.URL;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
 
 public class Main {
 
-    public static void main (String[] args) {
+    public static void main(String[] args) {
 
-        Path resourcePath = Paths.get("src", "main", "resources", "numeros.txt");
-        try {
-            Files.createDirectories(resourcePath.getParent());
+        //Creamos el archivo de texto.
+        String nombreArchivo = "numeros.txt";
 
+        try (BufferedWriter bw = new BufferedWriter(new FileWriter(nombreArchivo))) {
 
-        //Crear el archivo y abrirlo.
-        try (FileWriter writer = new FileWriter (resourcePath.toFile())) {
-
-            //Guardar el valor "1" tres veces
+            //Creamos y escribimos en el archivo tres "1" y seis "2"
             for (int i = 0; i < 3; i++) {
-                writer.write("1");
+                bw.write("1");
+                bw.newLine();
             }
 
-            writer.write("\n");
-
-            //Guardar el valor "2" seis veces
             for (int i = 0; i < 6; i++) {
-                writer.write("2");
-            }
-            writer.write("\n");
-            writer.close();
-
-            URL resource = Main.class.getClassLoader().getResource("numeros.txt");
-            if (resource == null) {
-                throw new IllegalArgumentException("File not found");
-            } else {
-                System.out.println("Econtré el archivo");
+                bw.write("2");
+                bw.newLine();
             }
 
-            InputStream in = Main.class.getClassLoader().getResourceAsStream("numeros.txt");
-
-            //Mostrar por pantalla el contenido del archivo
-            try (BufferedReader leer = new BufferedReader(new InputStreamReader(in))) {
-
-                String contenido;
-
-                while ((contenido = leer.readLine()) != null) {
-                    System.out.println(contenido);
-
-                }
-
-            } catch (Exception e) {
+            }
+             catch (IOException e) {
                 throw new RuntimeException(e);
-            }
         }
-            /*BufferedWriter writer2 = new BufferedWriter
-                    (new FileWriter(String.valueOf(in)));
 
-            //Escribir y leer nuevamente el archivo
-            try (BufferedReader leer = new BufferedReader (new InputStreamReader(in))) {
+            //Mostramos el contenido.
+            System.out.println("Contenido original del archivo:");
+            try (BufferedReader br = new BufferedReader(new FileReader(nombreArchivo))) {
 
-                String contenido;
-
-                //Mostrar por pantalla el contenido nuevo del archivo
-                while ((contenido = leer.readLine()) != null) {
-
-                    String contenidoNuevo = contenido.replace("2", "3");
-
-                    writer2.write(contenidoNuevo);
-                    writer2.newLine();
-                    System.out.println(contenidoNuevo);
-
+                String linea;
+                while ((linea = br.readLine()) != null) {
+                    System.out.println(linea);
                 }
-                writer2.close();
-
             } catch (IOException e) {
-                throw new RuntimeException(e);
-            }*/
+                System.out.println("Error al leer el archivo: " + e.getMessage());
+            }
 
-        } catch (IOException e) {
-            throw new RuntimeException(e);
+            //Leemos el contenido y reemplazamos los "2" por "3".
+            try (BufferedReader br = new BufferedReader(new FileReader(nombreArchivo))) {
+
+                StringBuilder contenido = new StringBuilder();
+                String linea;
+
+                while ((linea = br.readLine()) != null) {
+                    contenido.append(linea.replace("2", "3"));
+                    contenido.append("\n");
+                }
+
+                //Sobrescribir el archivo con los nuevos valores
+                BufferedWriter bw = new BufferedWriter(new FileWriter(nombreArchivo));
+                bw.write (contenido.toString());
+
+                    while ((linea = br.readLine()) != null) {
+                        System.out.println(linea);
+                    }
+                //Mostrar el nuevo contenido.
+                System.out.println("\nContenido después de reemplazar los '2' por '3':");
+
+
+                } catch (IOException e) {
+                    System.out.println("Error al leer el archivo: " + e.getMessage());
+                }
+
+            }
+
         }
-    }
-}
