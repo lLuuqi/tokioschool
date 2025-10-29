@@ -20,8 +20,7 @@ public class Main {
                 bw.newLine();
             }
 
-            }
-             catch (IOException e) {
+            } catch (IOException e) {
                 throw new RuntimeException(e);
         }
 
@@ -38,26 +37,34 @@ public class Main {
             }
 
             //Leemos el contenido y reemplazamos los "2" por "3".
-            try (BufferedReader br = new BufferedReader(new FileReader(nombreArchivo))) {
+            try {
+                    StringBuilder contenido = new StringBuilder();
 
-                StringBuilder contenido = new StringBuilder();
-                String linea;
+                try (BufferedReader br = new BufferedReader(new FileReader(nombreArchivo))) {
 
-                while ((linea = br.readLine()) != null) {
-                    contenido.append(linea.replace("2", "3"));
-                    contenido.append("\n");
+                    String linea;
+
+                    while ((linea = br.readLine()) != null) {
+                        contenido.append(linea.replace("2", "3"));
+                        contenido.append("\n");
+                    }
                 }
 
                 //Sobrescribir el archivo con los nuevos valores
-                BufferedWriter bw = new BufferedWriter(new FileWriter(nombreArchivo));
-                bw.write (contenido.toString());
+                try (BufferedWriter bw = new BufferedWriter(new FileWriter(nombreArchivo))) {
+                    bw.write (contenido.toString());
+                }
 
-                    while ((linea = br.readLine()) != null) {
-                        System.out.println(linea);
-                    }
                 //Mostrar el nuevo contenido.
                 System.out.println("\nContenido después de reemplazar los '2' por '3':");
 
+                    try (BufferedReader br = new BufferedReader(new FileReader(nombreArchivo))) {
+                        String linea;
+                        while ((linea = br.readLine()) != null) {
+                            System.out.println(linea);
+                        }
+
+                    }
 
                 } catch (IOException e) {
                     System.out.println("Error al leer el archivo: " + e.getMessage());
