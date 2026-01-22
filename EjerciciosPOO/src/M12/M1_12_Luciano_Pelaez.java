@@ -1,4 +1,4 @@
-import java.util.Random;
+package M12;
 
 public class M1_12_Luciano_Pelaez {
 
