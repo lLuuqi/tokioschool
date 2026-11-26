@@ -1,0 +1,49 @@
+header h1 {
+    color: cornflowerblue;
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 40px;
+    text-align: center;
+}
+
+.noticias {
+    margin-left: 8%;
+    margin-right: 5%;
+    margin-top: 30pt;
+}
+
+section h2 {
+    font-family: Arial, Helvetica, sans-serif;
+    text-decoration: underline;
+}
+
+#articulo-uno {
+    color: darkred;
+    font-size: 16px;
+    text-align: justify;
+}
+
+#articulo-dos {
+    color: darkmagenta;
+    font-size: 12px;
+    font-weight: bold;
+    font-style: italic;
+}
+
+footer nav {
+    text-align: center;
+    margin-top: 40px;
+}
+
+footer nav ul {
+    list-style: none;
+    padding: 0;
+}
+
+footer nav ul li {
+    display: inline-block;
+    margin: 0 15px;
+}
+
+footer nav ul li a:hover {
+    color: orange;
+}
